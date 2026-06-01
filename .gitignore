@@ -139,6 +139,11 @@ dmypy.json
 /out/ 
 /rms.zip
 
+# Keep rms-web build output in repository
+!/rms-web/
+!/rms-web/dist/
+!/rms-web/dist/**
+
 # Project-bound license env (real token must not be committed)
 device_end/tcp_gateway/config/license.env
 !device_end/tcp_gateway/config/license.env.example

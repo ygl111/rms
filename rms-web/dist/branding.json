@@ -1,0 +1,25 @@
+{
+  "assets": {
+    "logo": "",
+    "homeImage": "",
+    "favicon": ""
+  },
+  "zh-CN": {
+    "appTitle": "",
+    "appTitleSub": "",
+    "appTitleFull": "",
+    "homeWelcomeBanner": "",
+    "loginTitle": "",
+    "loginBrandText": "",
+    "loginBrandLogoAlt": ""
+  },
+  "en-US": {
+    "appTitle": "",
+    "appTitleSub": "",
+    "appTitleFull": "",
+    "homeWelcomeBanner": "",
+    "loginTitle": "",
+    "loginBrandText": "",
+    "loginBrandLogoAlt": ""
+  }
+}
