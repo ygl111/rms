@@ -1,0 +1,2 @@
+from backend.mqtt_upgrade_adapter.adapter import MqttUpgradeAdapter
+

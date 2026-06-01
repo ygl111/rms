@@ -1,0 +1,881 @@
+{
+  "version": "1.0",
+  "description": "通用消息解析规则配置",
+  "message_rules": {
+    "1": {
+      "name": "设备通用应答报文",
+      "table_name": "devices",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        }
+      ]
+    },
+    "2": {
+      "name": "注册报文",
+      "table_name": "devices",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        },
+        {
+          "field_name": "manufacturer",
+          "source_path": "body.manufacturer",
+          "data_type": "string",
+          "offset": 34,
+          "size": 16,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "manufacturer"
+        },
+        {
+          "field_name": "branchInfoLength",
+          "source_path": "body.branchInfoLength",
+          "data_type": "uint8",
+          "offset": 50,
+          "size": 1,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "branchInfoLength"
+        },
+        {
+          "field_name": "branchInfo",
+          "source_path": "body.branchInfo",
+          "data_type": "variable_string",
+          "offset": "dynamic",
+          "offset_ref": "branchInfoLength",
+          "size_ref": "branchInfoLength",
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "branchInfo"
+        },
+        {
+          "field_name": "device_type",
+          "source_path": "body.deviceType",
+          "data_type": "uint8",
+          "offset": "dynamic",
+          "offset_ref": "branchInfo",
+          "size": 1,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "deviceType"
+        },
+        {
+          "field_name": "deviceModel",
+          "source_path": "body.deviceModel",
+          "data_type": "string",
+          "offset": "dynamic",
+          "offset_ref": "device_type",
+          "size": 16,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "deviceModel"
+        },
+        {
+          "field_name": "suffix_marker",
+          "source_path": "body.suffixFlag",
+          "data_type": "string",
+          "offset": "dynamic",
+          "offset_ref": "deviceModel",
+          "size": 8,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "suffixFlag"
+        },
+        {
+          "field_name": "firmware_version",
+          "source_path": "body.firmwareVersion",
+          "data_type": "string",
+          "offset": "dynamic",
+          "offset_ref": "suffix_marker",
+          "size": 32,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "firmwareVersion"
+        },
+        {
+          "field_name": "hardware_version_length",
+          "source_path": "body.hardwareVersionLength",
+          "data_type": "uint8",
+          "offset": "dynamic",
+          "offset_ref": "firmware_version",
+          "size": 1,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "hardwareVersionLength"
+        },
+        {
+          "field_name": "hardware_version",
+          "source_path": "body.hardwareVersion",
+          "data_type": "variable_string",
+          "offset": "dynamic",
+          "offset_ref": "hardware_version_length",
+          "size_ref": "hardware_version_length",
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "hardwareVersion"
+        },
+        {
+          "field_name": "main_software_version_length",
+          "source_path": "body.mainSoftwareVersionLength",
+          "data_type": "uint16",
+          "offset": "dynamic",
+          "offset_ref": "hardware_version",
+          "size": 2,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "mainSoftwareVersionLength"
+        },
+        {
+          "field_name": "main_software_version",
+          "source_path": "body.mainSoftwareVersion",
+          "data_type": "variable_string",
+          "offset": "dynamic",
+          "offset_ref": "main_software_version_length",
+          "size_ref": "main_software_version_length",
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "mainSoftwareVersion"
+        },
+        {
+          "field_name": "currency_db_version_length",
+          "source_path": "body.currencyDbVersionLength",
+          "data_type": "uint16",
+          "offset": "dynamic",
+          "offset_ref": "main_software_version",
+          "size": 2,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "currencyDbVersionLength"
+        },
+        {
+          "field_name": "currency_library_version",
+          "source_path": "body.currencyDbVersion",
+          "data_type": "variable_string",
+          "offset": "dynamic",
+          "offset_ref": "currency_db_version_length",
+          "size_ref": "currency_db_version_length",
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "currencyDbVersion"
+        }
+      ]
+    },
+    "3": {
+      "name": "登录报文",
+      "table_name": "devices",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        },
+        {
+          "field_name": "authentication_code",
+          "source_path": "body.authentication_code",
+          "data_type": "bytes",
+          "offset": 34,
+          "size": 16,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "authentication_code"
+        }
+      ]
+    },
+    "4": {
+      "name": "设备心跳",
+      "table_name": "devices",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        }
+      ]
+    },
+    "5": {
+      "name": "查询升级",
+      "table_name": "devices",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        }
+      ]
+    },
+    "7": {
+      "name": "参数上报",
+      "table_name": "devices",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        },
+        {
+          "field_name": "param_count",
+          "source_path": "body.param_count",
+          "data_type": "uint8",
+          "offset": 34,
+          "size": 1,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "param_count"
+        }
+      ]
+    },
+    "8": {
+      "name": "上传文件",
+      "table_name": "devices",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        }
+      ]
+    },
+    "9": {
+      "name": "文件下载",
+      "table_name": "devices",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        }
+      ]
+    },
+    "11": {
+      "name": "设备日志上传",
+      "table_name": "devices",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        }
+      ]
+    },
+    "10": {
+      "name": "设备事件",
+      "table_name": "faults",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        },
+        {
+          "field_name": "event_level",
+          "source_path": "body.event_level",
+          "data_type": "uint8",
+          "offset": 34,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "event_level"
+        },
+        {
+          "field_name": "event_code",
+          "source_path": "body.event_code",
+          "data_type": "uint16",
+          "offset": 35,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "event_code"
+        },
+        {
+          "field_name": "event_time",
+          "source_path": "body.event_time",
+          "data_type": "bcd_datetime",
+          "offset": 37,
+          "size": 6,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "event_time"
+        },
+        {
+          "field_name": "event_content_length",
+          "source_path": "body.event_content_length",
+          "data_type": "uint16",
+          "offset": 43,
+          "size": 2,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "event_content_length"
+        },
+        {
+          "field_name": "event_content",
+          "source_path": "body.event_content",
+          "data_type": "variable_string",
+          "offset": 45,
+          "size_ref": "event_content_length",
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "event_content"
+        }
+      ]
+    },
+    "12": {
+      "name": "点钞信息上报",
+      "table_name": "banknote_counts",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        },
+        {
+          "field_name": "info_type",
+          "source_path": "body.information_type",
+          "data_type": "uint8",
+          "offset": 34,
+          "size": 1,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "info_type"
+        },
+        {
+          "field_name": "packet_flag",
+          "source_path": "body.packet_flag",
+          "data_type": "uint8",
+          "offset": 35,
+          "size": 1,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "packet_flag"
+        },
+        {
+          "field_name": "work_mode",
+          "source_path": "body.cash_counting_data.working_mode",
+          "data_type": "uint8",
+          "offset": 36,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "work_mode"
+        },
+        {
+          "field_name": "business_mode",
+          "source_path": "body.cash_counting_data.business_mode",
+          "data_type": "uint8",
+          "offset": 37,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "business_mode"
+        },
+        {
+          "field_name": "add_up_switch",
+          "source_path": "body.cash_counting_data.accumulation_switch",
+          "data_type": "uint8",
+          "offset": 38,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "add_up_switch"
+        },
+        {
+          "field_name": "counting_time",
+          "source_path": "body.cash_counting_data.counting_time",
+          "data_type": "bcd_datetime",
+          "offset": 39,
+          "size": 6,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "counting_time"
+        },
+        {
+          "field_name": "total_notes_count",
+          "source_path": "body.cash_counting_data.total_notes",
+          "data_type": "uint16",
+          "offset": 45,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "total_notes_count"
+        },
+        {
+          "field_name": "currency_count",
+          "source_path": "body.cash_counting_data.denomination_count",
+          "data_type": "uint8",
+          "offset": 47,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "currency_count"
+        },
+        {
+          "field_name": "statistics_data",
+          "source_path": "body.currency_statistics",
+          "data_type": "currency_statistics",
+          "offset": "dynamic",
+          "size": -1,
+          "endianness": "little",
+          "required": false,
+          "size_ref": "currency_count",
+          "size_ref_config": {
+            "field_name": "currency_count",
+            "offset": 47,
+            "size": 1,
+            "data_type": "uint8",
+            "record_size": 10
+          }
+        },
+        {
+          "field_name": "note_details",
+          "source_path": "body.note_data",
+          "data_type": "note_details",
+          "offset": "dynamic",
+          "size": -1,
+          "endianness": "little",
+          "required": false,
+          "size_ref": "total_notes_count",
+          "size_ref_config": {
+            "field_name": "total_notes_count",
+            "offset": 45,
+            "size": 2,
+            "data_type": "uint16",
+            "record_size": 32
+          }
+        }
+      ]
+    },
+    "6": {
+      "name": "上传升级结果",
+      "table_name": "upgrade_records",
+      "protocol_id": "",
+      "fields": [
+        {
+          "field_name": "msg_head",
+          "source_path": "header.msg_head",
+          "data_type": "uint16",
+          "offset": 0,
+          "size": 2,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_head"
+        },
+        {
+          "field_name": "msg_type",
+          "source_path": "header.msg_type",
+          "data_type": "uint8",
+          "offset": 2,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "msg_type"
+        },
+        {
+          "field_name": "devUniqueId",
+          "source_path": "header.devUniqueId",
+          "data_type": "string",
+          "offset": 8,
+          "size": 24,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "devUniqueId"
+        },
+        {
+          "field_name": "upgrade_task_id",
+          "source_path": "body.upgrade_task_id",
+          "data_type": "string",
+          "offset": 36,
+          "size": 18,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "upgrade_task_id"
+        },
+        {
+          "field_name": "upgrade_result",
+          "source_path": "body.upgrade_result",
+          "data_type": "uint8",
+          "offset": 54,
+          "size": 1,
+          "endianness": "little",
+          "required": true,
+          "schema_ref": "upgrade_result"
+        },
+        {
+          "field_name": "current_version",
+          "source_path": "body.current_version",
+          "data_type": "string",
+          "offset": 55,
+          "size": 32,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "current_version"
+        },
+        {
+          "field_name": "failure_desc_length",
+          "source_path": "body.failure_desc_length",
+          "data_type": "uint8",
+          "offset": 87,
+          "size": 1,
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "failure_desc_length"
+        },
+        {
+          "field_name": "failure_desc",
+          "source_path": "body.failure_desc",
+          "data_type": "string",
+          "offset": 88,
+          "size_ref": "failure_desc_length",
+          "endianness": "little",
+          "required": false,
+          "schema_ref": "failure_desc"
+        }
+      ]
+    }
+  },
+  "field_types": {
+    "uint8": {
+      "size": 1,
+      "endianness": "little",
+      "description": "8位无符号整数"
+    },
+    "uint16": {
+      "size": 2,
+      "endianness": "little",
+      "description": "16位无符号整数"
+    },
+    "uint32": {
+      "size": 4,
+      "endianness": "little",
+      "description": "32位无符号整数"
+    },
+    "string": {
+      "size": "variable",
+      "encoding": "utf8",
+      "description": "字符串"
+    },
+    "bcd_datetime": {
+      "size": 6,
+      "description": "BCD格式时间",
+      "format": "YYMMDDHHMMSS"
+    },
+    "currency_statistics": {
+      "size": "variable",
+      "description": "币种统计数据",
+      "structure": [
+        {"name": "currency_symbol", "size": 4, "type": "string"},
+        {"name": "count", "size": 2, "type": "uint16"},
+        {"name": "amount", "size": 4, "type": "uint32"}
+      ]
+    },
+    "note_details": {
+      "size": "variable",
+      "description": "钞票明细数据",
+      "structure": [
+        {"name": "currency_symbol", "size": 4, "type": "string"},
+        {"name": "denomination", "size": 4, "type": "uint32"},
+        {"name": "note_version", "size": 1, "type": "uint8"},
+        {"name": "error_type", "size": 1, "type": "uint8"},
+        {"name": "error_code", "size": 2, "type": "uint16"},
+        {"name": "serial_number", "size": 20, "type": "string"}
+      ]
+    }
+  },
+  "crc_config": {
+    "algorithm": "crc16_modbus",
+    "polynomial": "0x8005",
+    "initial_value": "0xFFFF",
+    "final_xor": "0x0000",
+    "reflect_input": true,
+    "reflect_output": true
+  }
+}

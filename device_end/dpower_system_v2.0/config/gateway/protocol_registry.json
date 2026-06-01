@@ -1,0 +1,86 @@
+{
+  "protocols": {
+    "dp_protocol_v1": {
+      "name": "DP_Protocol",
+      "version": "1.0",
+      "port": 8081,
+      "config_file": "dp_protocol_v1.json",
+      "message_boundary": {
+        "header_size": 34,
+        "length_field": {
+          "offset": 3,
+          "size": 2,
+          "endianness": "little",
+          "includes_header": false
+        },
+        "crc_field": {
+          "offset": -4,
+          "size": 2,
+          "endianness": "little"
+        },
+        "tail_field": {
+          "offset": -2,
+          "size": 2,
+          "value": [170, 170]
+        },
+        "signatures": [
+          {
+            "offset": 0,
+            "value": [85, 85],
+            "description": "固定报头 0x55 0x55"
+          },
+          {
+            "offset": 2,
+            "value": [3],
+            "description": "报文类型 0x03"
+          }
+        ]
+      }
+    },
+    "dp_protocol_v2": {
+      "name": "DP_Protocol",
+      "version": "2.0",
+      "port": 8082,
+      "config_file": "dp_protocol_v2.json",
+      "message_boundary": {
+        "header_size": 40,
+        "length_field": {
+          "offset": 4,
+          "size": 4,
+          "endianness": "big",
+          "includes_header": false
+        },
+        "signatures": [
+          {
+            "offset": 0,
+            "value": [187, 102],
+            "description": "固定报头"
+          }
+        ]
+      }
+    },
+    "modbus_tcp": {
+      "name": "Modbus_TCP",
+      "version": "1.0",
+      "port": 8083,
+      "config_file": "modbus_tcp.json",
+      "message_boundary": {
+        "header_size": 6,
+        "length_field": {
+          "offset": 4,
+          "size": 2,
+          "endianness": "big",
+          "includes_header": true
+        },
+        "signatures": [
+          {
+            "offset": 2,
+            "value": [0, 0],
+            "description": "协议标识符"
+          }
+        ]
+      }
+    }
+  },
+  "default_protocol": "dp_protocol_v1"
+} 

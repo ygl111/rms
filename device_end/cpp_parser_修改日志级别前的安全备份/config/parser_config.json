@@ -1,0 +1,50 @@
+{
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "password": "",
+    "db": 0,
+    "request_stream_key": "device_raw_messages",
+    "response_queue_key": "device_responses",
+    "consumer_group": "parser_group",
+    "consumer_name": "cpp_parser_consumer",
+    "block_timeout": 100
+  },
+  "database": {
+    "uri": "127.0.0.1:3306/rms",
+    "user": "rms_user",
+    "password": "12345678"
+  },
+  "ftp": {
+    "host": "192.168.12.52",
+    "port": 21,
+    "user": "ftpuser",
+    "password": "1234"
+  },
+  "thread": {
+    "worker_threads": 4,
+    "batch_size": 10,
+    "queue_size": 1000,
+    "enable_affinity": false
+  },
+  "protocol": {
+    "schema_path": "config/dp_protocol_v1.json",
+    "enable_crc_check": true,
+    "enable_packet_validation": true,
+    "max_packet_size": 4096,
+    "enable_schema_resolver": true
+  },
+  "log": {
+    "enable_console_log": true,
+    "enable_file_log": true,
+    "log_file": "cpp_parser.log",
+    "log_level": "INFO",
+    "enable_performance_log": false
+  },
+  "monitor": {
+    "enable_stats": true,
+    "stats_interval": 300,
+    "enable_health_check": true,
+    "health_check_interval": 600
+  }
+}

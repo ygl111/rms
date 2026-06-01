@@ -1,0 +1,124 @@
+# TCP Gateway 项目依赖清单
+# 这是一个 C++ 项目，以下是需要安装的系统依赖和库
+
+# ========================================
+# 系统依赖 (Ubuntu/Debian)
+# ========================================
+
+# 基础编译工具
+build-essential
+cmake>=3.10
+pkg-config
+
+# Boost 库 (异步网络和线程)
+libboost-system-dev>=1.71.0
+libboost-thread-dev>=1.71.0
+
+# Redis 客户端库
+libhiredis-dev
+
+# 注意: redis++ 需要手动从源码编译安装
+# 请先运行: ./install_redis_plus_plus.sh
+# 或者手动安装，见下方命令
+
+# 线程库
+libpthread-stubs0-dev
+
+# JSON 库 (项目已包含 external/include/json.hpp)
+# 无需安装系统包
+
+# ========================================
+# 可选依赖
+# ========================================
+
+# 调试工具
+gdb
+valgrind
+
+# 性能分析工具
+perf
+
+# 网络工具
+net-tools
+iproute2
+
+# ========================================
+# 安装命令 (Ubuntu/Debian)
+# ========================================
+
+# 更新包列表
+# sudo apt update
+
+# 安装基础依赖
+# sudo apt install -y build-essential cmake pkg-config \
+#     libboost-system-dev libboost-thread-dev \
+#     libhiredis-dev libpthread-stubs0-dev
+
+# 手动安装 redis++ (必须先执行)
+# 方法1: 使用安装脚本
+# ./install_redis_plus_plus.sh
+
+# 方法2: 手动安装
+# git clone https://github.com/sewenew/redis-plus-plus.git
+# cd redis-plus-plus
+# mkdir build && cd build
+# cmake ..
+# make -j$(nproc)
+# sudo make install
+# sudo ldconfig
+
+# ========================================
+# 编译说明
+# ========================================
+
+# 1. 创建构建目录
+# mkdir -p build && cd build
+
+# 2. 配置 CMake
+# cmake ..
+
+# 3. 编译项目
+# make -j$(nproc)
+
+# 4. 运行程序
+# ./gateway
+
+# ========================================
+# 配置文件
+# ========================================
+
+# 确保 config/gateway.conf 文件存在并配置正确
+# 默认配置文件路径: config/gateway.conf
+
+# ========================================
+# 运行时依赖 (需要手动安装)
+# ========================================
+
+# Redis 服务器
+# sudo apt install redis-server
+# sudo systemctl start redis-server
+# sudo systemctl enable redis-server
+
+# ========================================
+# 版本要求
+# ========================================
+
+# C++ 标准: C++17
+# CMake: >= 3.10
+# Boost: >= 1.71.0
+# Redis++: 最新版本
+# nlohmann/json: 项目内置 (external/include/json.hpp)
+
+# ========================================
+# 部署检查清单
+# ========================================
+
+# [ ] 安装所有系统依赖
+# [ ] 手动安装 redis++
+# [ ] 手动安装 Redis 服务器
+# [ ] 编译项目成功
+# [ ] 配置文件 config/gateway.conf 存在
+# [ ] 端口 12345 可用
+# [ ] 防火墙配置正确
+# [ ] 日志目录可写
+# [ ] 测试连接成功 

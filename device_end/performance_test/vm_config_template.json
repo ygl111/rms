@@ -1,0 +1,78 @@
+{
+  "test_environments": {
+    "local": {
+      "tcp_gateway": {
+        "host": "localhost",
+        "ports": {
+          "dp_protocol_v1": 8081,
+          "dp_protocol_v2": 8082,
+          "modbus_tcp": 502
+        }
+      },
+      "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "password": "",
+        "request_stream_key": "device_raw_messages",
+        "response_queue_key": "device_responses"
+      },
+      "database": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "rms_user",
+        "password": "12345678",
+        "database": "rms"
+      }
+    },
+    "vm_nat": {
+      "description": "通过NAT端口转发连接虚拟机",
+      "tcp_gateway": {
+        "host": "localhost",
+        "ports": {
+          "dp_protocol_v1": 8081,
+          "dp_protocol_v2": 8082,
+          "modbus_tcp": 502
+        }
+      },
+      "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "password": "",
+        "request_stream_key": "device_raw_messages",
+        "response_queue_key": "device_responses"
+      },
+      "database": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "rms_user",
+        "password": "12345678",
+        "database": "rms"
+      }
+    },
+    "vm_bridge": {
+      "description": "桥接模式连接虚拟机（请更新IP地址）",
+      "tcp_gateway": {
+        "host": "localhost",
+        "ports": {
+          "dp_protocol_v1": 8081,
+          "dp_protocol_v2": 8082,
+          "modbus_tcp": 502
+        }
+      },
+      "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "password": "",
+        "request_stream_key": "device_raw_messages",
+        "response_queue_key": "device_responses"
+      },
+      "database": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "rms_user",
+        "password": "12345678",
+        "database": "rms"
+      }
+    }
+  }
+}

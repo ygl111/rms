@@ -1,0 +1,67 @@
+{
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "password": "",
+    "db": 0,
+    "request_stream_key": "device_raw_messages",
+    "response_queue_key": "device_responses",
+    "dead_letter_queue_key": "device_raw_messages_dlq",
+    "consumer_group": "parser_group",
+    "consumer_name": "cpp_parser_consumer",
+    "block_timeout": 100,
+    "process_max_retries": 3,
+    "retry_backoff_ms": 50
+  },
+  "database": {
+    "uri": "127.0.0.1:3306/rms",
+    "user": "rms_user",
+    "password": "12345678"
+  },
+  "ftp": {
+    "host": "183.169.121.226",
+    "port": 21,
+    "user": "ftpuser",
+    "password": "rsb198"
+  },
+  "thread": {
+    "worker_threads": 16,
+    "batch_size": 10,
+    "queue_size": 2000,
+    "enable_affinity": false
+  },
+    "rabbitmq": {
+      "enabled": true,
+      "uri": "amqp://dpower:dpower1234@183.169.121.226:5672/",
+      "worktime_queue": "worktime_detail_queue"
+    },
+  "protocol": {
+    "schema_path": "config/protocol_registry.json",
+    "enable_crc_check": true,
+    "enable_packet_validation": true,
+    "max_packet_size": 4096,
+    "enable_schema_resolver": true
+  },
+  "log": {
+    "enable_console_log": true,
+    "enable_file_log": true,
+    "log_file": "cpp_parser.log",
+    "log_level": "DEBUG",
+    "enable_performance_log": false
+  },
+  "monitor": {
+    "enable_stats": true,
+    "stats_interval": 300,
+    "enable_health_check": true,
+    "health_check_interval": 600,
+    "offline_detection_poll_interval_seconds": 3,
+    "offline_detection_timeout_seconds": 80
+  },
+  "notification": {
+    "enable_email_notification": false,
+    "email_api_host": "127.0.0.1",
+    "email_api_port": "443",
+    "email_api_https": true,
+    "email_api_verify_tls": false
+  }
+}

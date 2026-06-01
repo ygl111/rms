@@ -1,0 +1,66 @@
+{
+  "version": "1.0",
+  "description": "协议解析策略配置",
+  "protocol_strategies": {
+    "dp_protocol_v1": {
+      "header_size": 34,
+      "msg_id_field": "msg_id",
+      "msg_id_offset": 6,
+      "msg_id_size": 2,
+      "msg_id_endianness": "little",
+      "length_field": "msg_body_len",
+      "length_offset": 3,
+      "length_size": 2,
+      "length_endianness": "little",
+      "length_includes_header": false,
+      "header_signature": [85, 85],
+      "header_signature_offset": 0,
+      "tail_signature": [170, 170],
+      "tail_signature_offset": -2,
+      "has_crc": true,
+      "crc_offset": -4,
+      "crc_size": 2,
+      "crc_endianness": "little"
+    },
+    "dp_protocol_v2": {
+      "header_size": 44,
+      "msg_id_field": "msg_id",
+      "msg_id_offset": 6,
+      "msg_id_size": 2,
+      "msg_id_endianness": "little",
+      "length_field": "msg_body_len",
+      "length_offset": 3,
+      "length_size": 2,
+      "length_endianness": "little",
+      "length_includes_header": false,
+      "header_signature": [85, 85],
+      "header_signature_offset": 0,
+      "tail_signature": [170, 170],
+      "tail_signature_offset": -2,
+      "has_crc": true,
+      "crc_offset": -4,
+      "crc_size": 2,
+      "crc_endianness": "little"
+    },
+    "modbus_tcp": {
+      "header_size": 8,
+      "msg_id_field": "function_code",
+      "msg_id_offset": 7,
+      "msg_id_size": 1,
+      "msg_id_endianness": "little",
+      "length_field": "length",
+      "length_offset": 4,
+      "length_size": 2,
+      "length_endianness": "big",
+      "length_includes_header": false,
+      "has_crc": false
+    }
+  },
+  "global_settings": {
+    "enable_debug_logging": false,
+    "strict_validation": true,
+    "allow_partial_parsing": false,
+    "max_message_size": 8192,
+    "timeout_ms": 5000
+  }
+} 

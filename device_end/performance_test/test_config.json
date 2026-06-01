@@ -1,0 +1,293 @@
+{
+  "test_environments": {
+    "local": {
+      "tcp_gateway": {
+        "host": "localhost",
+        "ports": {
+          "dp_protocol_v1": 8081,
+          "dp_protocol_v2": 8082,
+          "modbus_tcp": 502
+        }
+      },
+      "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "password": "",
+        "request_stream_key": "device_raw_messages",
+        "response_queue_key": "device_responses"
+      },
+      "database": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "rms_user",
+        "password": "12345678",
+        "database": "rms"
+      }
+    },
+    "vm": {
+      "tcp_gateway": {
+        "host": "localhost",
+        "ports": {
+          "dp_protocol_v1": 8081,
+          "dp_protocol_v2": 8082,
+          "modbus_tcp": 502
+        }
+      },
+      "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "password": "",
+        "request_stream_key": "device_raw_messages",
+        "response_queue_key": "device_responses"
+      },
+      "database": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "rms_user",
+        "password": "12345678",
+        "database": "rms"
+      }
+    },
+    "staging": {
+      "tcp_gateway": {
+        "host": "localhost",
+        "ports": {
+          "dp_protocol_v1": 8081,
+          "dp_protocol_v2": 8082,
+          "modbus_tcp": 502
+        }
+      },
+      "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "password": "",
+        "request_stream_key": "device_raw_messages",
+        "response_queue_key": "device_responses"
+      },
+      "database": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "rms_user",
+        "password": "12345678",
+        "database": "rms"
+      }
+    }
+  },
+  
+  "test_scenarios": {
+    "smoke_test": {
+      "description": "基础烟雾测试，验证系统基本功能",
+      "enabled": true,
+      "config": {
+        "concurrent_devices": 1,
+        "test_duration": 30,
+        "message_interval": 5.0,
+        "ramp_up_time": 0,
+        "message_weights": {
+          "heartbeat": 0.7,
+          "banknote_report": 0.2,
+          "fault_report": 0.1
+        }
+      }
+    },
+    
+    "light_load_test": {
+      "description": "轻负载测试，模拟正常业务负载",
+      "enabled": true,
+      "config": {
+        "concurrent_devices": 10,
+        "test_duration": 300,
+        "message_interval": 2.0,
+        "ramp_up_time": 30,
+        "message_weights": {
+          "heartbeat": 0.5,
+          "banknote_report": 0.3,
+          "fault_report": 0.2
+        }
+      }
+    },
+    
+    "medium_load_test": {
+      "description": "中等负载测试，模拟繁忙时段负载",
+      "enabled": true,
+      "config": {
+        "concurrent_devices": 50,
+        "test_duration": 600,
+        "message_interval": 1.0,
+        "ramp_up_time": 60,
+        "message_weights": {
+          "heartbeat": 0.4,
+          "banknote_report": 0.4,
+          "fault_report": 0.2
+        }
+      }
+    },
+    
+    "heavy_load_test": {
+      "description": "重负载测试，测试系统极限性能",
+      "enabled": false,
+      "config": {
+        "concurrent_devices": 200,
+        "test_duration": 1800,
+        "message_interval": 0.5,
+        "ramp_up_time": 120,
+        "message_weights": {
+          "heartbeat": 0.3,
+          "banknote_report": 0.5,
+          "fault_report": 0.2
+        }
+      }
+    },
+    
+    "stress_test": {
+      "description": "压力测试，逐步增加负载找到性能瓶颈",
+      "enabled": true,
+      "config": {
+        "start_devices": 1,
+        "max_devices": 100,
+        "step_size": 10,
+        "step_duration": 120,
+        "message_interval": 1.0,
+        "max_response_time": 1.0,
+        "min_success_rate": 0.95
+      }
+    },
+    
+    "concurrent_connection_test": {
+      "description": "并发连接测试，测试大量并发连接能力",
+      "enabled": true,
+      "config": {
+        "max_concurrent_connections": 500,
+        "connection_ramp_rate": 10.0,
+        "hold_time": 300,
+        "messages_per_connection": 5,
+        "message_send_rate": 1.0,
+        "connection_pattern": "burst",
+        "test_scenarios": ["connect_only", "connect_and_send"]
+      }
+    },
+    
+    "long_duration_test": {
+      "description": "长时间稳定性测试，测试系统长期运行稳定性",
+      "enabled": false,
+      "config": {
+        "concurrent_devices": 20,
+        "test_duration": 7200,
+        "message_interval": 10.0,
+        "ramp_up_time": 60,
+        "heartbeat_interval": 30,
+        "message_weights": {
+          "heartbeat": 0.8,
+          "banknote_report": 0.15,
+          "fault_report": 0.05
+        }
+      }
+    },
+    
+    "burst_test": {
+      "description": "突发流量测试，模拟瞬间大量消息",
+      "enabled": true,
+      "config": {
+        "concurrent_devices": 30,
+        "test_duration": 180,
+        "message_interval": 0.1,
+        "ramp_up_time": 10,
+        "burst_duration": 30,
+        "burst_interval": 60,
+        "message_weights": {
+          "heartbeat": 0.2,
+          "banknote_report": 0.6,
+          "fault_report": 0.2
+        }
+      }
+    }
+  },
+  
+  "performance_thresholds": {
+    "connection_success_rate": 0.95,
+    "message_success_rate": 0.98,
+    "max_avg_response_time": 0.1,
+    "max_p95_response_time": 0.5,
+    "max_p99_response_time": 1.0,
+    "min_qps": 100,
+    "max_cpu_usage": 80.0,
+    "max_memory_usage": 80.0,
+    "max_tcp_connections": 2000
+  },
+  
+  "monitoring": {
+    "system_monitor": {
+      "enabled": true,
+      "interval": 1.0,
+      "metrics": ["cpu", "memory", "network", "disk", "tcp_connections"]
+    },
+    "redis_monitor": {
+      "enabled": true,
+      "interval": 5.0,
+      "metrics": ["ops", "memory", "hit_rate", "stream_length", "queue_length"]
+    },
+    "database_monitor": {
+      "enabled": true,
+      "interval": 10.0,
+      "metrics": ["connections", "queries", "slow_queries", "locks"]
+    },
+    "application_monitor": {
+      "enabled": true,
+      "interval": 2.0,
+      "process_names": ["gateway", "cpp_parser"]
+    }
+  },
+  
+  "reporting": {
+    "output_directory": "performance_reports",
+    "generate_html_report": true,
+    "generate_csv_export": true,
+    "generate_charts": true,
+    "chart_formats": ["png", "svg"],
+    "include_raw_data": false,
+    "compress_reports": true
+  },
+  
+  "notifications": {
+    "email": {
+      "enabled": false,
+      "smtp_server": "smtp.example.com",
+      "smtp_port": 587,
+      "username": "test@example.com",
+      "password": "password",
+      "recipients": ["admin@example.com"]
+    },
+    "webhook": {
+      "enabled": false,
+      "url": "https://hooks.slack.com/services/xxx/yyy/zzz",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  },
+  
+  "advanced_settings": {
+    "device_id_prefix": "PERF_TEST",
+    "manufacturer": "PerformanceTest",
+    "device_types": [1, 2, 3],
+    "firmware_versions": ["1.0.0", "1.1.0", "2.0.0"],
+    "retry_settings": {
+      "max_retries": 3,
+      "retry_delay": 1.0,
+      "backoff_factor": 2.0
+    },
+    "timeout_settings": {
+      "connection_timeout": 30,
+      "message_timeout": 10,
+      "test_timeout": 7200
+    },
+    "logging": {
+      "level": "INFO",
+      "file": "performance_test.log",
+      "max_size": "100MB",
+      "backup_count": 5,
+      "format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+    }
+  }
+}

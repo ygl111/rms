@@ -1,0 +1,69 @@
+{
+  "protocolName": "Modbus_TCP",
+  "version": "1.0",
+  "header": {
+    "size": 6,
+    "fields": [
+      { "name": "transaction_id", "offset": 0, "size": 2, "dataType": ">H", "source": "seq_num" },
+      { "name": "protocol_id", "offset": 2, "size": 2, "dataType": ">H", "valueHex": "0000" },
+      { "name": "length", "offset": 4, "size": 2, "dataType": ">H", "source": "body_length" }
+    ]
+  },
+  "messages": {
+    "discriminatorField": "function_code",
+    "bodies": {
+      "1": [
+        { "name": "unit_id", "size": 1, "dataType": "<B" },
+        { "name": "function_code", "size": 1, "dataType": "<B" },
+        { "name": "byte_count", "size": 1, "dataType": "<B" },
+        { "name": "coil_status", "size": "byte_count", "dataType": "s" }
+      ],
+      "2": [
+        { "name": "unit_id", "size": 1, "dataType": "<B" },
+        { "name": "function_code", "size": 1, "dataType": "<B" },
+        { "name": "byte_count", "size": 1, "dataType": "<B" },
+        { "name": "input_status", "size": "byte_count", "dataType": "s" }
+      ],
+      "3": [
+        { "name": "unit_id", "size": 1, "dataType": "<B" },
+        { "name": "function_code", "size": 1, "dataType": "<B" },
+        { "name": "byte_count", "size": 1, "dataType": "<B" },
+        { "name": "register_values", "size": "byte_count", "dataType": "s" }
+      ],
+      "4": [
+        { "name": "unit_id", "size": 1, "dataType": "<B" },
+        { "name": "function_code", "size": 1, "dataType": "<B" },
+        { "name": "byte_count", "size": 1, "dataType": "<B" },
+        { "name": "input_register_values", "size": "byte_count", "dataType": "s" }
+      ],
+      "5": [
+        { "name": "unit_id", "size": 1, "dataType": "<B" },
+        { "name": "function_code", "size": 1, "dataType": "<B" },
+        { "name": "coil_address", "size": 2, "dataType": ">H" },
+        { "name": "coil_value", "size": 2, "dataType": ">H" }
+      ],
+      "6": [
+        { "name": "unit_id", "size": 1, "dataType": "<B" },
+        { "name": "function_code", "size": 1, "dataType": "<B" },
+        { "name": "register_address", "size": 2, "dataType": ">H" },
+        { "name": "register_value", "size": 2, "dataType": ">H" }
+      ],
+      "15": [
+        { "name": "unit_id", "size": 1, "dataType": "<B" },
+        { "name": "function_code", "size": 1, "dataType": "<B" },
+        { "name": "starting_address", "size": 2, "dataType": ">H" },
+        { "name": "quantity_of_coils", "size": 2, "dataType": ">H" },
+        { "name": "byte_count", "size": 1, "dataType": "<B" },
+        { "name": "coil_values", "size": "byte_count", "dataType": "s" }
+      ],
+      "16": [
+        { "name": "unit_id", "size": 1, "dataType": "<B" },
+        { "name": "function_code", "size": 1, "dataType": "<B" },
+        { "name": "starting_address", "size": 2, "dataType": ">H" },
+        { "name": "quantity_of_registers", "size": 2, "dataType": ">H" },
+        { "name": "byte_count", "size": 1, "dataType": "<B" },
+        { "name": "register_values", "size": "byte_count", "dataType": "s" }
+      ]
+    }
+  }
+}

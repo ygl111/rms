@@ -1,0 +1,24 @@
+{
+  "protocols": {
+    "dp_protocol_v1": {
+      "name": "DP_Protocol",
+      "version": "1.0",
+      "config_file": "dp_protocol_v1.json",
+      "description": "DP协议版本1.0，用于设备通信"
+    },
+    "dp_protocol_v2": {
+      "name": "DP_Protocol", 
+      "version": "2.0",
+      "config_file": "dp_protocol_v2.json",
+      "description": "DP协议版本2.0，增强版设备通信协议"
+    },
+    "modbus_tcp": {
+      "name": "Modbus_TCP",
+      "version": "1.0", 
+      "config_file": "modbus_tcp.json",
+      "description": "Modbus TCP协议，用于工业设备通信"
+    }
+  },
+  "default_protocol": "dp_protocol_v1",
+  "config_directory": "config"
+} 

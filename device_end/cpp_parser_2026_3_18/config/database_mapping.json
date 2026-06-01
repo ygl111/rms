@@ -1,0 +1,459 @@
+{
+  "version": "1.0",
+  "description": "数据库字段映射配置",
+  "tables": {
+    "devices": {
+      "table_name": "devices",
+      "description": "设备信息表",
+      "fields": {
+        "id": {
+          "type": "VARCHAR(36)",
+          "auto_increment": false,
+          "primary_key": true,
+          "description": "主键ID (UUID)"
+        },
+        "device_id": {
+          "source_field": "devUniqueId",
+          "type": "VARCHAR(64)",
+          "unique": true,
+          "description": "设备唯一标识"
+        },
+        "device_type": {
+          "source_field": "device_type",
+          "type": "INT",
+          "description": "设备类型"
+        },
+        "model_id": {
+          "source_field": "deviceModel",
+          "type": "INT",
+          "description": "设备型号ID（通过deviceModel查找）"
+        },
+        "firmware_version": {
+          "source_field": "firmware_version",
+          "type": "VARCHAR(40)",
+          "description": "当前固件版本"
+        },
+        "hardware_version": {
+          "source_field": "hardware_version",
+          "type": "VARCHAR(512)",
+          "description": "硬件版本"
+        },
+        "main_software_version": {
+          "source_field": "main_software_version",
+          "type": "VARCHAR(1024)",
+          "description": "主软件版本"
+        },
+        "currency_library_version": {
+          "source_field": "currency_library_version",
+          "type": "VARCHAR(2048)",
+          "description": "币种库版本"
+        },
+        "authentication_code": {
+          "source_field": "authentication_code",
+          "type": "VARCHAR(45)",
+          "description": "鉴权码"
+        },
+        "suffix_marker": {
+          "source_field": "suffix_marker",
+          "type": "VARCHAR(10)",
+          "description": "设备后缀标记"
+        },
+        "online_status": {
+          "type": "ENUM('online','offline')",
+          "default": "offline",
+          "description": "在线状态"
+        },
+        "last_online_time": {
+          "source_field": "timestamp",
+          "type": "DATETIME",
+          "description": "最后在线时间"
+        },
+        "ip_endpoint": {
+          "source_field": "source_ip",
+          "type": "VARCHAR(50)",
+          "description": "设备IP地址和端口"
+        },
+        "institution_id": {
+          "source_field": "",
+          "type": "VARCHAR(36)",
+          "default": "00000000-0000-0000-0000-000000000000",
+          "description": "所属机构ID"
+        },
+        "extra_data": {
+          "type": "JSON",
+          "description": "预留扩展字段"
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "default": "CURRENT_TIMESTAMP",
+          "description": "创建时间"
+        },
+        "updated_at": {
+          "type": "DATETIME",
+          "default": "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "description": "更新时间"
+        }
+      }
+    },
+    "banknote_counts": {
+      "table_name": "banknote_counts",
+      "description": "点钞记录主表",
+      "fields": {
+        "id": {
+          "type": "VARCHAR(36)",
+          "auto_increment": false,
+          "primary_key": true,
+          "description": "主键ID (UUID)"
+        },
+        "device_id": {
+          "source_field": "devUniqueId",
+          "type": "VARCHAR(36)",
+          "index": true,
+          "description": "设备ID (关联devices.id)"
+        },
+        "institution_id": {
+          "type": "VARCHAR(36)",
+          "description": "所属机构ID（冗余）"
+        },
+        "device_identifier": {
+          "type": "VARCHAR(64)",
+          "description": "设备业务编号（冗余）"
+        },
+        "institution_name": {
+          "type": "VARCHAR(64)",
+          "description": "机构名称（冗余）"
+        },
+        "institution_code": {
+          "type": "VARCHAR(64)",
+          "description": "机构编码（冗余）"
+        },
+        "work_mode": {
+          "source_field": "work_mode",
+          "type": "TINYINT UNSIGNED",
+          "description": "工作模式"
+        },
+        "business_mode": {
+          "source_field": "business_mode",
+          "type": "TINYINT UNSIGNED",
+          "description": "业务模式"
+        },
+        "accumulate_flag": {
+          "source_field": "add_up_switch",
+          "type": "TINYINT UNSIGNED",
+          "description": "累加开关"
+        },
+        "count_time": {
+          "source_field": "counting_time",
+          "type": "DATETIME",
+          "description": "过钞时间"
+        },
+        "total_passed_count": {
+          "type": "SMALLINT UNSIGNED",
+          "description": "过钞总张数（计算得出）"
+        },
+        "failed_count": {
+          "type": "SMALLINT UNSIGNED",
+          "description": "过钞失败数量（计算得出）"
+        },
+        "total_amount": {
+          "type": "DECIMAL(19,2)",
+          "description": "总金额（计算得出，单位：元）"
+        },
+        "currency_count": {
+          "source_field": "currency_count",
+          "type": "TINYINT UNSIGNED",
+          "description": "币种数量"
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "default": "CURRENT_TIMESTAMP",
+          "description": "创建时间"
+        }
+      }
+    },
+    "banknote_count_currencies": {
+      "table_name": "banknote_count_currencies",
+      "description": "币种统计表",
+      "fields": {
+        "id": {
+          "type": "VARCHAR(36)",
+          "auto_increment": false,
+          "primary_key": true,
+          "description": "主键ID (UUID)"
+        },
+        "count_id": {
+          "type": "VARCHAR(36)",
+          "foreign_key": "banknote_counts.id",
+          "description": "点钞记录ID"
+        },
+        "currency_code": {
+          "source_field": "currency_symbol",
+          "type": "VARCHAR(4)",
+          "description": "币种编号"
+        },
+        "value": {
+          "source_field": "denomination",
+          "type": "DECIMAL(19,2)",
+          "description": "单张面值（单位：元）"
+        },
+        "note_count": {
+          "source_field": "count",
+          "type": "SMALLINT UNSIGNED",
+          "description": "张数"
+        },
+        "amount": {
+          "source_field": "amount",
+          "type": "DECIMAL(19,2)",
+          "description": "金额（单位：元）"
+        }
+      }
+    },
+    "banknote_detailed_data": {
+      "table_name": "banknote_detailed_data",
+      "description": "单张钞票详细数据表",
+      "fields": {
+        "id": {
+          "type": "VARCHAR(36)",
+          "auto_increment": false,
+          "primary_key": true,
+          "description": "主键ID (UUID)"
+        },
+        "count_id": {
+          "type": "VARCHAR(36)",
+          "foreign_key": "banknote_counts.id",
+          "description": "点钞记录ID"
+        },
+        "currency_code": {
+          "source_field": "currency_symbol",
+          "type": "VARCHAR(4)",
+          "description": "币种编号"
+        },
+        "note_value": {
+          "source_field": "denomination",
+          "type": "DECIMAL(19,2)",
+          "description": "钞票面值（单位：元）"
+        },
+        "note_version": {
+          "source_field": "note_version",
+          "type": "TINYINT UNSIGNED",
+          "description": "钞票版本"
+        },
+        "error_type": {
+          "source_field": "error_type",
+          "type": "TINYINT UNSIGNED",
+          "description": "报错类型"
+        },
+        "error_code": {
+          "source_field": "error_code",
+          "type": "SMALLINT UNSIGNED",
+          "description": "报错代码"
+        },
+        "serial_number": {
+          "source_field": "serial_number",
+          "type": "VARCHAR(40)",
+          "description": "钞票序列号"
+        },
+        "stacker": {
+          "source_field": "stacker",
+          "type": "INT",
+          "description": "钞口"
+        }
+      }
+    },
+    "faults": {
+      "table_name": "faults",
+      "description": "设备故障信息表",
+      "fields": {
+        "id": {
+          "type": "VARCHAR(36)",
+          "auto_increment": false,
+          "primary_key": true,
+          "description": "主键ID (UUID)"
+        },
+        "device_id": {
+          "source_field": "devUniqueId",
+          "type": "VARCHAR(36)",
+          "foreign_key": "devices.id",
+          "description": "故障设备ID"
+        },
+        "fault_code": {
+          "source_field": "event_code",
+          "type": "VARCHAR(64)",
+          "description": "故障代码"
+        },
+        "description": {
+          "source_field": "event_content",
+          "type": "VARCHAR(1024)",
+          "description": "故障描述"
+        },
+        "fault_time": {
+          "source_field": "event_time",
+          "type": "DATETIME",
+          "description": "故障发生时间"
+        },
+        "fault_level": {
+          "source_field": "event_level",
+          "type": "INT",
+          "description": "故障等级"
+        },
+        "status": {
+          "type": "ENUM('unprocessed','processing','processed')",
+          "default": "unprocessed",
+          "description": "处理状态"
+        },
+        "extra_data": {
+          "type": "JSON",
+          "description": "预留扩展字段"
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "default": "CURRENT_TIMESTAMP",
+          "description": "创建时间"
+        }
+      }
+    },
+    "upgrade_records": {
+      "table_name": "upgrade_records",
+      "description": "设备升级记录表",
+      "fields": {
+        "id": {
+          "type": "VARCHAR(36)",
+          "auto_increment": false,
+          "primary_key": true,
+          "description": "主键ID (UUID)"
+        },
+        "task_id": {
+          "source_field": "upgrade_task_id",
+          "type": "VARCHAR(36)",
+          "description": "升级任务ID"
+        },
+        "device_id": {
+          "source_field": "devUniqueId",
+          "type": "VARCHAR(36)",
+          "foreign_key": "devices.id",
+          "description": "目标设备ID"
+        },
+        "status": {
+          "source_field": "upgrade_result",
+          "type": "ENUM('pending','success','failed','cancelled')",
+          "description": "升级结果/状态"
+        },
+        "result_message": {
+          "source_field": "failure_desc",
+          "type": "TEXT",
+          "description": "结果信息"
+        },
+        "completed_at": {
+          "source_field": "timestamp",
+          "type": "DATETIME",
+          "description": "升级完成时间"
+        },
+        "created_at": {
+          "type": "DATETIME",
+          "default": "CURRENT_TIMESTAMP",
+          "description": "创建时间"
+        }
+      }
+    }
+  },
+  "message_type_mapping": {
+    "1": {
+      "table": "devices",
+      "operation": "NONE",
+      "description": "设备通用应答报文"
+    },
+    "2": {
+      "table": "devices",
+      "operation": "INSERT_OR_UPDATE",
+      "description": "注册报文"
+    },
+    "3": {
+      "table": "devices",
+      "operation": "UPDATE",
+      "description": "登录报文"
+    },
+    "4": {
+      "table": "devices",
+      "operation": "UPDATE",
+      "description": "设备心跳"
+    },
+    "5": {
+      "table": "devices",
+      "operation": "QUERY",
+      "description": "查询升级"
+    },
+    "6": {
+      "table": "upgrade_records",
+      "operation": "INSERT",
+      "description": "上传升级结果"
+    },
+    "7": {
+      "table": "devices",
+      "operation": "UPDATE",
+      "description": "参数上报"
+    },
+    "8": {
+      "table": "devices",
+      "operation": "INSERT",
+      "description": "上传文件"
+    },
+    "9": {
+      "table": "devices",
+      "operation": "QUERY",
+      "description": "文件下载"
+    },
+    "10": {
+      "table": "faults",
+      "operation": "INSERT",
+      "description": "设备事件"
+    },
+    "11": {
+      "table": "devices",
+      "operation": "INSERT",
+      "description": "设备日志上传"
+    },
+    "12": {
+      "table": "banknote_counts",
+      "operation": "INSERT",
+      "description": "点钞信息上报"
+    }
+  },
+  "field_transformations": {
+    "timestamp": {
+      "type": "unix_to_datetime",
+      "description": "Unix时间戳转换为MySQL DATETIME"
+    },
+    "devUniqueId": {
+      "type": "trim",
+      "description": "去除设备ID的前后空格"
+    },
+    "event_content": {
+      "type": "trim",
+      "description": "去除故障描述的前后空格"
+    },
+    "failure_desc": {
+      "type": "trim",
+      "description": "去除失败描述的前后空格"
+    },
+    "counting_time": {
+      "type": "bcd_to_datetime",
+      "description": "BCD格式时间转换为MySQL DATETIME"
+    },
+    "event_time": {
+      "type": "bcd_to_datetime",
+      "description": "BCD格式时间转换为MySQL DATETIME"
+    },
+    "upgrade_result": {
+      "type": "upgrade_result_mapping",
+      "description": "升级结果映射：0=success, 1=failed, 2=cancelled"
+    }
+  },
+  "database_settings": {
+    "connection_pool_size": 10,
+    "max_retries": 3,
+    "retry_delay_ms": 1000,
+    "batch_size": 100,
+    "enable_transactions": true,
+    "auto_commit": false
+  }
+} 

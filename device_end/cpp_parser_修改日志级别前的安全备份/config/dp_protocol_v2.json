@@ -1,0 +1,63 @@
+{
+  "protocolName": "DP_Protocol",
+  "version": "2.0",
+  "header": {
+    "size": 40,
+    "fields": [
+      { "name": "msg_head", "offset": 0, "size": 4, "dataType": ">I", "valueHex": "55555555" },
+      { "name": "msg_type", "offset": 4, "size": 1, "dataType": "<B", "valueHex": "03" },
+      { "name": "msg_body_len", "offset": 5, "size": 4, "dataType": ">I", "source": "body_length" },
+      { "name": "msg_attribute", "offset": 9, "size": 1, "dataType": "<B" },
+      { "name": "msg_id", "offset": 10, "size": 2, "dataType": "<H", "source": "msg_id" },
+      { "name": "devUniqueId", "offset": 12, "size": 24, "dataType": "24s", "source": "device_id" },
+      { "name": "seNum", "offset": 36, "size": 4, "dataType": "<I", "source": "seq_num" }
+    ]
+  },
+  "messages": {
+    "discriminatorField": "msg_id",
+    "bodies": {
+      "1": [
+        { "name": "response_seNum", "size": 4, "dataType": "<I" },
+        { "name": "response_msg_id", "size": 2, "dataType": "<H" },
+        { "name": "result", "size": 1, "dataType": "<B" },
+        { "name": "additional_msg_length", "size": 2, "dataType": "<H" },
+        { "name": "additional_msg", "size": "additional_msg_length", "dataType": "s" }
+      ],
+      "2": [
+        { "name": "manufacturer", "size": 32, "dataType": "32s" },
+        { "name": "branchInfoLength", "size": 2, "dataType": "<H" },
+        { "name": "branchInfo", "size": "branchInfoLength", "dataType": "s" },
+        { "name": "deviceType", "size": 1, "dataType": "<B" },
+        { "name": "deviceModel", "size": 32, "dataType": "32s" },
+        { "name": "suffixFlag", "size": 16, "dataType": "16s" },
+        { "name": "firmwareVersion", "size": 64, "dataType": "64s" },
+        { "name": "hardwareVersionLength", "size": 2, "dataType": "<H" },
+        { "name": "hardwareVersion", "size": "hardwareVersionLength", "dataType": "s" },
+        { "name": "mainSoftwareVersionLength", "size": 4, "dataType": "<I" },
+        { "name": "mainSoftwareVersion", "size": "mainSoftwareVersionLength", "dataType": "s" },
+        { "name": "currencyDbVersionLength", "size": 4, "dataType": "<I" },
+        { "name": "currencyDbVersion", "size": "currencyDbVersionLength", "dataType": "s" }
+      ],
+      "3": [
+        { "name": "authentication_code", "size": 32, "dataType": "32s" }
+      ],
+      "4": [],
+      "5": [
+        { "name": "module_type", "size": 1, "dataType": "<B" },
+        { "name": "firmware_version", "size": 64, "dataType": "64s" }
+      ],
+      "32770": [
+        { "name": "response_seNum", "size": 4, "dataType": "<I", "source": "seq_num" },
+        { "name": "result", "size": 1, "dataType": "<B", "source": "result" },
+        { "name": "authentication_code", "size": 32, "dataType": "32s", "source": "authentication_code" }
+      ],
+      "32771": [
+        { "name": "response_seNum", "size": 4, "dataType": "<I", "source": "seq_num" },
+        { "name": "result", "size": 1, "dataType": "<B", "source": "result" },
+        { "name": "server_time", "size": 6, "dataType": "6s", "source": "server_time_bcd" },
+        { "name": "heart_interval", "size": 1, "dataType": "<B", "source": "heart_interval" },
+        { "name": "keep_connect", "size": 1, "dataType": "<B", "source": "keep_connect" }
+      ]
+    }
+  }
+} 

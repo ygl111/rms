@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  gateway:
+    image: dpower-gateway:v1.0
+    container_name: dpower_gateway
+    network_mode: "host"
+    restart: always
+    command: ["./bin/gateway", "-c", "config/gateway.conf"]
+    volumes:
+      - ./config/gateway:/app/config
+      - ./logs/gateway:/app/logs
+
+  parser:
+    image: dpower-parser:v1.0
+    container_name: dpower_parser
+    network_mode: "host"       # 共享网络，方便连接本机的 Redis/MySQL
+    restart: always
+    depends_on:
+      - gateway
+    volumes:
+      - ./config/parser:/app/config
+      - ./logs/parser:/app/logs
+    environment:
+      - DP_DB_PER_THREAD=1
+      - DP_DB_DEBUG=0

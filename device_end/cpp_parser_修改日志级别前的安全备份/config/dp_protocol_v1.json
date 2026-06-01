@@ -1,0 +1,145 @@
+{
+  "protocolName": "DP_Protocol",
+  "version": "1.0",
+  "header": {
+    "size": 34,
+    "fields": [
+      { "name": "msg_head", "offset": 0, "size": 2, "dataType": "<H", "valueHex": "5555" },
+      { "name": "msg_type", "offset": 2, "size": 1, "dataType": "<B", "valueHex": "03" },
+      { "name": "msg_body_len", "offset": 3, "size": 2, "dataType": "<H", "source": "body_length" },
+      { "name": "msg_attribute", "offset": 5, "size": 1, "dataType": "<B" },
+      { "name": "msg_id", "offset": 6, "size": 2, "dataType": "<H", "source": "msg_id" },
+      { "name": "devUniqueId", "offset": 8, "size": 24, "dataType": "24s", "source": "device_id" },
+      { "name": "seNum", "offset": 32, "size": 2, "dataType": "<H", "source": "seq_num" }
+    ]
+  },
+  "messages": {
+    "discriminatorField": "msg_id",
+    "bodies": {
+      "1": [
+        { "name": "response_seNum", "size": 2, "dataType": "<H" },
+        { "name": "response_msg_id", "size": 2, "dataType": "<H" },
+        { "name": "result", "size": 1, "dataType": "<B" },
+        { "name": "additional_msg_length", "size": 1, "dataType": "<B" },
+        { "name": "additional_msg", "size": "additional_msg_length", "dataType": "s" }
+      ],
+      "2": [
+        { "name": "manufacturer", "size": 16, "dataType": "16s" },
+        { "name": "branchInfoLength", "size": 1, "dataType": "<B" },
+        { "name": "branchInfo", "size": "branchInfoLength", "dataType": "s" },
+        { "name": "deviceType", "size": 1, "dataType": "<B" },
+        { "name": "deviceModel", "size": 16, "dataType": "16s" },
+        { "name": "suffixFlag", "size": 8, "dataType": "8s" },
+        { "name": "firmwareVersion", "size": 32, "dataType": "32s" },
+        { "name": "hardwareVersionLength", "size": 1, "dataType": "<B" },
+        { "name": "hardwareVersion", "size": "hardwareVersionLength", "dataType": "s" },
+        { "name": "mainSoftwareVersionLength", "size": 2, "dataType": "<H" },
+        { "name": "mainSoftwareVersion", "size": "mainSoftwareVersionLength", "dataType": "s" },
+        { "name": "currencyDbVersionLength", "size": 2, "dataType": "<H" },
+        { "name": "currencyDbVersion", "size": "currencyDbVersionLength", "dataType": "s" }
+      ],
+      "3": [
+        { "name": "authentication_code", "size": 16, "dataType": "16s" }
+      ],
+      "4": [],
+      "5": [
+        { "name": "module_type", "size": 1, "dataType": "<B" },
+        { "name": "firmware_version", "size": 32, "dataType": "32s" }
+      ],
+      "6": [
+        { "name": "module_type", "size": 1, "dataType": "<B" },
+        { "name": "upgrade_channel", "size": 1, "dataType": "<B" },
+        { "name": "upgrade_task_id", "size": 18, "dataType": "18s" },
+        { "name": "upgrade_result", "size": 1, "dataType": "<B" },
+        { "name": "current_version", "size": 32, "dataType": "32s" },
+        { "name": "failure_desc_length", "size": 1, "dataType": "<B" },
+        { "name": "failure_desc", "size": "failure_desc_length", "dataType": "s" }
+      ],
+      "7": [
+        { "name": "param_count", "size": 1, "dataType": "<B" }
+      ],
+      "10": [
+        { "name": "event_level", "size": 1, "dataType": "<B" },
+        { "name": "event_code", "size": 2, "dataType": "<H" },
+        { "name": "event_time", "size": 6, "dataType": "6s" },
+        { "name": "event_content_length", "size": 2, "dataType": "<H" },
+        { "name": "event_content", "size": "event_content_length", "dataType": "s" }
+      ],
+      "12": [
+        { "name": "info_type", "size": 1, "dataType": "<B" },
+        { "name": "packet_flag", "size": 1, "dataType": "<B" },
+        { "name": "work_mode", "size": 1, "dataType": "<B" },
+        { "name": "business_mode", "size": 1, "dataType": "<B" },
+        { "name": "add_up_switch", "size": 1, "dataType": "<B" },
+        { "name": "counting_time", "size": 6, "dataType": "6s" },
+        { "name": "total_notes_count", "size": 2, "dataType": "<H" },
+        { "name": "currency_count", "size": 1, "dataType": "<B" }
+      ],
+      "264": [
+        { "name": "response_seNum", "size": 2, "dataType": "<H" },
+        { "name": "param_count", "size": 1, "dataType": "<B" }
+      ],
+      "32769": [
+        { "name": "response_seNum", "size": 2, "dataType": "<H", "source": "seq_num" },
+        { "name": "response_msg_id", "size": 2, "dataType": "<H", "source": "response_msg_id" },
+        { "name": "result", "size": 1, "dataType": "<B", "source": "result" },
+        { "name": "additional_msg_length", "size": 1, "dataType": "<B", "source": "additional_msg_length" },
+        { "name": "additional_msg", "size": "additional_msg_length", "dataType": "s", "source": "additional_msg" }
+      ],
+      "32770": [
+        { "name": "response_seNum", "size": 2, "dataType": "<H", "source": "seq_num" },
+        { "name": "result", "size": 1, "dataType": "<B", "source": "result" },
+        { "name": "authentication_code", "size": 16, "dataType": "16s", "source": "authentication_code" }
+      ],
+      "32771": [
+        { "name": "response_seNum", "size": 2, "dataType": "<H", "source": "seq_num" },
+        { "name": "result", "size": 1, "dataType": "<B", "source": "result" },
+        { "name": "server_time", "size": 6, "dataType": "6s", "source": "server_time_bcd" },
+        { "name": "heart_interval", "size": 1, "dataType": "<B", "source": "heart_interval" },
+        { "name": "keep_connect", "size": 1, "dataType": "<B", "source": "keep_connect" }
+      ],
+      "32772": [
+        { "name": "response_seNum", "size": 2, "dataType": "<H", "source": "seq_num" },
+        { "name": "keep_connect", "size": 1, "dataType": "<B", "source": "keep_connect" }
+      ],
+      "32773": [
+        { "name": "response_seNum", "size": 2, "dataType": "<H", "source": "seq_num" },
+        { "name": "result", "size": 1, "dataType": "<B", "source": "result" },
+        { "name": "force_upgrade", "size": 1, "dataType": "<B", "source": "force_upgrade" },
+        { "name": "upgrade_task_id", "size": 18, "dataType": "18s", "source": "upgrade_task_id" },
+        { "name": "start_time", "size": 2, "dataType": "2s", "source": "start_time" },
+        { "name": "end_time", "size": 2, "dataType": "2s", "source": "end_time" },
+        { "name": "module_type", "size": 1, "dataType": "<B", "source": "module_type" },
+        { "name": "file_size", "size": 4, "dataType": "<I", "source": "file_size" },
+        { "name": "firmware_name_length", "size": 1, "dataType": "<B", "source": "firmware_name_length" },
+        { "name": "firmware_name", "size": "firmware_name_length", "dataType": "s", "source": "firmware_name" },
+        { "name": "firmware_md5", "size": 16, "dataType": "16s", "source": "firmware_md5" },
+        { "name": "firmware_version", "size": 32, "dataType": "32s", "source": "firmware_version" },
+        { "name": "firmware_url_length", "size": 2, "dataType": "<H", "source": "firmware_url_length" },
+        { "name": "firmware_url", "size": "firmware_url_length", "dataType": "s", "source": "firmware_url" }
+      ],
+      "33030": [
+        { "name": "module_type", "size": 1, "dataType": "<B", "source": "module_type" },
+        { "name": "force_upgrade", "size": 1, "dataType": "<B", "source": "force_upgrade" },
+        { "name": "upgrade_task_id", "size": 18, "dataType": "18s", "source": "upgrade_task_id" },
+        { "name": "start_time", "size": 2, "dataType": "2s", "source": "start_time" },
+        { "name": "end_time", "size": 2, "dataType": "2s", "source": "end_time" },
+        { "name": "file_size", "size": 4, "dataType": "<I", "source": "file_size" },
+        { "name": "firmware_name_length", "size": 1, "dataType": "<B", "source": "firmware_name_length" },
+        { "name": "firmware_name", "size": "firmware_name_length", "dataType": "s", "source": "firmware_name" },
+        { "name": "firmware_md5", "size": 16, "dataType": "16s", "source": "firmware_md5" },
+        { "name": "firmware_version", "size": 32, "dataType": "32s", "source": "firmware_version" },
+        { "name": "firmware_url_length", "size": 2, "dataType": "<H", "source": "firmware_url_length" },
+        { "name": "firmware_url", "size": "firmware_url_length", "dataType": "s", "source": "firmware_url" }
+      ],
+      "33032": [
+        { "name": "param_count", "size": 1, "dataType": "<B" }
+      ],
+      "33044": [
+        { "name": "firmware_version", "size": 32, "dataType": "32s" },
+        { "name": "upgrade_task_id", "size": 18, "dataType": "18s" }
+      ]
+    }
+  }
+}
+

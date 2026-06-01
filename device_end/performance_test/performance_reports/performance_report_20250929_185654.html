@@ -1,0 +1,1530 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备性能测试报告 - 20250929_185654</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+        h2 { color: #555; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0; }
+        .metric { background: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 4px solid #4CAF50; }
+        .metric h3 { margin: 0 0 10px 0; color: #333; }
+        .metric .value { font-size: 24px; font-weight: bold; color: #4CAF50; }
+        .metric .unit { font-size: 14px; color: #666; }
+        .success { border-left-color: #4CAF50; }
+        .warning { border-left-color: #FF9800; }
+        .error { border-left-color: #f44336; }
+        .table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .table th, .table td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        .table th { background-color: #f2f2f2; font-weight: bold; }
+        .table tr:hover { background-color: #f5f5f5; }
+        .timestamp { text-align: center; color: #666; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>设备性能测试报告</h1>
+        
+        <h2>测试概览</h2>
+        <div class="summary">
+            <div class="metric success">
+                <h3>总设备数量</h3>
+                <div class="value">100</div>
+                <div class="unit">台设备</div>
+            </div>
+            <div class="metric success">
+                <h3>连接成功率</h3>
+                <div class="value">100.0%</div>
+                <div class="unit">100/100 连接成功</div>
+            </div>
+            <div class="metric success">
+                <h3>注册成功率</h3>
+                <div class="value">100.0%</div>
+                <div class="unit">100/100 注册成功</div>
+            </div>
+            <div class="metric success">
+                <h3>鉴权成功率</h3>
+                <div class="value">100.0%</div>
+                <div class="unit">100/100 鉴权成功</div>
+            </div>
+            <div class="metric">
+                <h3>消息发送总数</h3>
+                <div class="value">2500</div>
+                <div class="unit">条消息</div>
+            </div>
+            <div class="metric">
+                <h3>消息接收总数</h3>
+                <div class="value">2200</div>
+                <div class="unit">条响应</div>
+            </div>
+            <div class="metric success">
+                <h3>平均注册登录时间</h3>
+                <div class="value">0.0674</div>
+                <div class="unit">秒/设备</div>
+            </div>
+            <div class="metric">
+                <h3>注册+鉴权耗时</h3>
+                <div class="value">6.74s</div>
+                <div class="unit">批处理阶段</div>
+            </div>
+            <div class="metric error">
+                <h3>故障上报响应率</h3>
+                <div class="value">0.0%</div>
+                <div class="unit">0/0 响应成功</div>
+            </div>
+            <div class="metric ">
+                <h3>故障上报平均响应时间</h3>
+                <div class="value">N/A</div>
+                <div class="unit">无数据</div>
+            </div>
+            <div class="metric success">
+                <h3>点钞上报响应率</h3>
+                <div class="value">100.0%</div>
+                <div class="unit">2000/2000 响应成功</div>
+            </div>
+            <div class="metric error">
+                <h3>点钞上报平均响应时间</h3>
+                <div class="value">2.160</div>
+                <div class="unit">秒</div>
+            </div>
+            <div class="metric">
+                <h3>心跳消息总数</h3>
+                <div class="value">300</div>
+                <div class="unit">条心跳</div>
+            </div>
+            <!-- 全局总测试时长（命令整体运行）替换原 平均心跳间隔 -->
+            <div class="metric success"><h3>总测试时长</h3><div class="value">1m 30.7s</div><div class="unit">命令整体</div></div>
+        </div>
+        
+        <h2>详细设备状态</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>设备ID</th>
+                    <th>连接状态</th>
+                    <th>注册时间(s)</th>
+                    <th>鉴权时间(s)</th>
+                    <th>发送消息</th>
+                    <th>接收消息</th>
+                    <th>心跳(发送)</th>
+                    <th>故障报告(发送/接收)</th>
+                    <th>点钞报告(发送/接收)</th>
+                    <th>连接错误</th>
+                    <th>最后错误</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>PERF_TEST_000001</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.228</td>
+                    <td>2.198</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000002</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.227</td>
+                    <td>2.190</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000003</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.226</td>
+                    <td>2.195</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000004</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.225</td>
+                    <td>2.194</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000005</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.226</td>
+                    <td>2.191</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000006</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.224</td>
+                    <td>2.192</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000007</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.224</td>
+                    <td>2.194</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000008</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.608</td>
+                    <td>2.208</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000009</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.222</td>
+                    <td>2.195</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000010</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.606</td>
+                    <td>1.815</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000011</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.608</td>
+                    <td>2.204</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000012</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.220</td>
+                    <td>2.190</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000013</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.221</td>
+                    <td>2.199</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000014</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.604</td>
+                    <td>2.207</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000015</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.217</td>
+                    <td>2.196</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000016</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.603</td>
+                    <td>2.210</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000017</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.605</td>
+                    <td>2.205</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000018</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.603</td>
+                    <td>2.208</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000019</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.603</td>
+                    <td>2.205</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000020</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.602</td>
+                    <td>2.204</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000021</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.602</td>
+                    <td>2.205</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000022</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.601</td>
+                    <td>2.205</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000023</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.000</td>
+                    <td>1.808</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000024</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.708</td>
+                    <td>3.603</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000025</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.000</td>
+                    <td>1.807</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000026</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.003</td>
+                    <td>2.800</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000027</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.002</td>
+                    <td>2.800</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000028</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.000</td>
+                    <td>2.102</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000029</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.000</td>
+                    <td>2.501</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000030</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.000</td>
+                    <td>2.500</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000031</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.997</td>
+                    <td>2.501</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000032</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.997</td>
+                    <td>1.806</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000033</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.997</td>
+                    <td>2.504</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000034</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.995</td>
+                    <td>2.102</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000035</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.003</td>
+                    <td>2.501</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000036</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.995</td>
+                    <td>2.103</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000037</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.996</td>
+                    <td>2.503</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000038</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.996</td>
+                    <td>2.501</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000039</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.001</td>
+                    <td>2.501</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000040</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.994</td>
+                    <td>3.310</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000041</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.001</td>
+                    <td>2.799</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000042</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.000</td>
+                    <td>2.799</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000043</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.999</td>
+                    <td>2.500</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000044</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.999</td>
+                    <td>2.500</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000045</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.000</td>
+                    <td>2.799</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000046</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.289</td>
+                    <td>2.511</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000047</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.289</td>
+                    <td>3.304</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000048</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.289</td>
+                    <td>2.506</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000049</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.289</td>
+                    <td>2.904</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000050</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.288</td>
+                    <td>2.904</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000051</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.289</td>
+                    <td>3.303</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000052</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.990</td>
+                    <td>3.605</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000053</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.289</td>
+                    <td>3.604</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000054</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.287</td>
+                    <td>2.903</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000055</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.286</td>
+                    <td>3.305</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000056</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.285</td>
+                    <td>2.904</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000057</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.286</td>
+                    <td>3.305</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000058</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.285</td>
+                    <td>3.304</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000059</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.285</td>
+                    <td>3.303</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000060</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.284</td>
+                    <td>3.303</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000061</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.683</td>
+                    <td>2.909</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000062</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.683</td>
+                    <td>2.909</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000063</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.980</td>
+                    <td>2.102</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000064</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.681</td>
+                    <td>2.907</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000065</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.683</td>
+                    <td>3.603</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000066</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.683</td>
+                    <td>3.205</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000067</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.682</td>
+                    <td>3.203</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000068</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.680</td>
+                    <td>3.207</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000069</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.678</td>
+                    <td>2.907</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000070</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.679</td>
+                    <td>3.205</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000071</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.677</td>
+                    <td>3.205</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000072</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.679</td>
+                    <td>3.205</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000073</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.678</td>
+                    <td>3.203</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000074</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.676</td>
+                    <td>3.205</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000075</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.680</td>
+                    <td>3.605</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000076</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.680</td>
+                    <td>3.603</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000077</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.682</td>
+                    <td>3.604</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000078</td>
+                    <td><span class="success">在线</span></td>
+                    <td>0.981</td>
+                    <td>2.801</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000079</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.974</td>
+                    <td>3.310</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000080</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.977</td>
+                    <td>4.005</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000081</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.977</td>
+                    <td>3.606</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000082</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.972</td>
+                    <td>3.313</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000083</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.973</td>
+                    <td>3.610</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000084</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.975</td>
+                    <td>3.605</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000085</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.974</td>
+                    <td>3.605</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000086</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.974</td>
+                    <td>3.604</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000087</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.972</td>
+                    <td>3.604</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000088</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.971</td>
+                    <td>3.606</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000089</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.970</td>
+                    <td>3.606</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000090</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.971</td>
+                    <td>3.607</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000091</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.970</td>
+                    <td>3.607</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000092</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.267</td>
+                    <td>2.507</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000093</td>
+                    <td><span class="success">在线</span></td>
+                    <td>1.970</td>
+                    <td>3.607</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000094</td>
+                    <td><span class="success">在线</span></td>
+                    <td>2.372</td>
+                    <td>4.307</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000095</td>
+                    <td><span class="success">在线</span></td>
+                    <td>2.369</td>
+                    <td>3.611</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000096</td>
+                    <td><span class="success">在线</span></td>
+                    <td>2.370</td>
+                    <td>3.607</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000097</td>
+                    <td><span class="success">在线</span></td>
+                    <td>2.366</td>
+                    <td>3.612</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000098</td>
+                    <td><span class="success">在线</span></td>
+                    <td>2.370</td>
+                    <td>4.006</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000099</td>
+                    <td><span class="success">在线</span></td>
+                    <td>2.369</td>
+                    <td>3.608</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <td>PERF_TEST_000100</td>
+                    <td><span class="success">在线</span></td>
+                    <td>2.370</td>
+                    <td>4.006</td>
+                    <td>25</td>
+                    <td>22</td>
+                    <td>3/N/A</td>
+                    <td>0/0 (0%)</td>
+                    <td>20/20 (100%)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+
+            </tbody>
+        </table>
+        
+        <div class="timestamp">
+            报告生成时间: 2025-09-29 18:56:54
+        </div>
+    </div>
+</body>
+</html>
